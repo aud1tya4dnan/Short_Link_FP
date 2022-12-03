@@ -2,34 +2,53 @@
   <div class="registerview">
     <h1 style="text-align: center">Register</h1>   
     <div class="username">
-        <label>Username</label><br />
-        <input type="text" placeholder="username" />
+        <label>Email</label><br />
+        <input type="text" placeholder="email" v-model="email"/>
     </div>
     <div class="password"></div>
         <label class="password">Password</label><br />
-        <input type="password" placeholder="password" />
+        <input type="password" placeholder="password" v-model="password"/>
         <div class="submit">
+            <button type="submit" @click="postUser(email, password)">Submit</button>
+      </div>
+      <p>Have an account? <RouterLink to="/">Login</RouterLink></p>
     </div>
-        <button type="submit">Submit</button>
-  </div>
 </template>
 
 <script>
 import axios from "axios";
 export default {
     data() {
-    return {};
+    return {
+        email: '',
+        password: '',
+    };
     },
     methods: {
-    async getMethod() {
-        const res = await axios
-        .get("http://localhost:8122/api")
-        .catch((err) => console.log(err));
-        console.log(res);
-    },
+    // async getMethod() {
+    //     const res = await axios
+    //     .get("http://localhost:8122/api")
+    //     .catch((err) => console.log(err));
+    //     console.log(res);
+    // },
+    async postUser(email, password) {
+        try{
+            const res = await axios.post('http://localhost:8122/api/register', {
+                email: email,
+                password: password
+            })
+            .then((response) => {
+                console.log(response)
+            })
+        }
+        catch(err){
+            console.log(err)
+        }
+    }
+    
     },
     mounted() {
-        this.getMethod();
+        // this.getMethod();
 },
 };
 </script>

@@ -25,13 +25,12 @@ a,
 @media (min-width: 100px) {
   body {
     display: flex;
-    place-items: left;
-    background: linear-gradient(-50deg, #ee7752, #e73c7e, #23a6d5, #23d5ab);
-	background-size: 400% 400%;
-	animation: gradient 10s ease infinite;
-	height: 100vh;
+    place-items: center;
+    background: linear-gradient(52deg, #963030, #3930b4);
+    background-size: 400% 400%;
+    animation: AnimationName 15s ease infinite;
   }
-  @keyframes gradient {
+  @keyframes AnimationName {
     0% {
       background-position: 0% 50%;
     }
@@ -43,9 +42,9 @@ a,
     }
   }
 
-  /* #app {
+  /*#app {
      display: grid;
     grid-template-columns: 1fr 1fr;
-    padding: 0 2rem; 
-  } */
+    padding: 0rem; 
+  }*/
 }

@@ -2,12 +2,12 @@
   <div class="loginview">
     <h1 style="text-align: center">Login</h1>
     <div class="username">
-      <label>Username</label><br />
-      <input type="text" placeholder="username" />
+      <label>Email</label><br />
+      <input type="text" placeholder="Email" v-model="email"/>
     </div>
     <div class="password">
       <label class="password">Password</label><br />
-      <input type="password" placeholder="password" />
+      <input type="password" placeholder="password" v-model="password"/>
     </div>
     <div class="submit"> 
       <button type="submit">Submit</button>

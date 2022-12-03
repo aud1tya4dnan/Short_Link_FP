@@ -1,43 +1,62 @@
 <template>
-  <div class="dashboard">
-    <div class="navbar">
-      <h1>AWIKWOK Shortener Service</h1>
+  <h1 class="title">AWIKWOK Shortener Service</h1>
+  <div class="inputlink">
+    <input type="text" placeholder="url"/>
+    <button type="submit">Submit</button>
+  </div>
+  <div class="list" v-for="item in items" :key="item">
+    <div class="box">
+      <h3 class="content">{{ item.slink }}</h3>
+      <h3 class="content">{{ item.link }}</h3>
+      <h3 class="content">{{ item.uses }}</h3>
     </div>
-    <div class="inputlink">
-      <input type="text" placeholder="url"/>
-      <button type="submit">Submit</button>
-    </div>
-    <table style="border: 1px solid">
-      <tr>
-        <th><h2>Short Link</h2></th>
-        <th><h2>Default Link</h2></th>
-        <th><h2>Uses</h2></th>
-      </tr>
-      <tr >
-        <td>AWIKWOK.wkwk</td>
-        <td>youtube.com/watch?v=dQw4w9WgXcQ</td>
-        <td>1</td>
-      </tr>
-    </table>
   </div>
 </template>
 
-<style>
-  table{
-    width: 100%;
+<script>
+  export default {
+    data(){
+      return {
+        items: [
+          {
+            slink: 'awik.wok',
+            link: 'www.youtube.com/watch?v=YOEHN2g5vFU',
+            uses: 1
+          },
+          {
+            slink: 'awik.wok',
+            link: 'www.youtube.com/watch?v=YOEHN2g5vFU',
+            uses: 1
+          },
+        ]
+      }
+    },
+    methods: {
+
+    },
+    mounted() {
+      
+    }
   }
-  .navbar {
-    display: flex;
+</script>
+
+<style>
+  .title {
+    text-align: center;
   }
   td {
-    margin-right: 10px;
     text-align: center;
   }
   .inputlink input {
-    margin-right: 1rem;
+    margin: 25px 1rem;
   }
-  .content {
+  .box {
     display: flex;
-    width: 100%;
-  } 
+  }
+  .content{
+    margin-right: 50px;
+  }
+  .box{
+    margin-bottom: 15px;
+  }
 </style>
