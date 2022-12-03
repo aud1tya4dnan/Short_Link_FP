@@ -1,7 +1,4 @@
 <template>
-  <div class="image">
-    <img src="../assets/logo.png" width="300" height="300"/>
-  </div>
   <div class="dashboard">
     <div class="navbar">
       <h1>AWIKWOK Shortener Service</h1>
@@ -10,13 +7,13 @@
       <input type="text" placeholder="url"/>
       <button type="submit">Submit</button>
     </div>
-    <table>
+    <table style="border: 1px solid">
       <tr>
         <th><h2>Short Link</h2></th>
         <th><h2>Default Link</h2></th>
         <th><h2>Uses</h2></th>
       </tr>
-      <tr>
+      <tr >
         <td>AWIKWOK.wkwk</td>
         <td>youtube.com/watch?v=dQw4w9WgXcQ</td>
         <td>1</td>
@@ -26,6 +23,9 @@
 </template>
 
 <style>
+  table{
+    width: 100%;
+  }
   .navbar {
     display: flex;
   }
@@ -36,12 +36,8 @@
   .inputlink input {
     margin-right: 1rem;
   }
-  .header {
+  .content {
     display: flex;
-    grid: 2rem;
-  }
-  .tablecol {
-    display: flex;
-    grid: 2rem;
-  }
+    width: 100%;
+  } 
 </style>

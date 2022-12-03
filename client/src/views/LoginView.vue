@@ -24,9 +24,7 @@ export default {
   },
   methods: {
     async getMethod() {
-      const res = await axios
-        .get("http://localhost:8122/api")
-        .catch((err) => console.log(err));
+      const res = await axios.get("http://localhost:8122/api").catch((err) => console.log(err));
       console.log(res);
     },
   },

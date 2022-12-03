@@ -1,7 +1,7 @@
 @import './base.css';
 
 #app {
-  max-width: auto;
+  max-width: 2144px;
   margin: 0 auto;
   padding: 2rem;
 
@@ -25,10 +25,10 @@ a,
 @media (min-width: 100px) {
   body {
     display: flex;
-    place-items: top-center;
+    place-items: left;
     background: linear-gradient(-50deg, #ee7752, #e73c7e, #23a6d5, #23d5ab);
 	background-size: 400% 400%;
-	animation: gradient 5s ease infinite;
+	animation: gradient 10s ease infinite;
 	height: 100vh;
   }
   @keyframes gradient {
