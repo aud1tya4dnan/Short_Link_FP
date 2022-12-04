@@ -32,18 +32,17 @@ export default {
     //     console.log(res);
     // },
     async postUser(email, password) {
-        try{
-            const res = await axios.post('http://localhost:8122/api/register', {
+        
+            const res = await axios.post(`http://localhost:8122/api/register`, {
                 email: email,
                 password: password
             })
             .then((response) => {
                 console.log(response)
             })
-        }
-        catch(err){
-            console.log(err)
-        }
+            .catch((error) => {
+                console.log(error);
+            })
     }
     
     },

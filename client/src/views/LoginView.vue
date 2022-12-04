@@ -10,7 +10,7 @@
       <input type="password" placeholder="password" v-model="password"/>
     </div>
     <div class="submit"> 
-      <button type="submit">Submit</button>
+      <button type="submit" >Submit</button>
     </div>
     <p>Dont have an account? <RouterLink to="/regis">Register</RouterLink> </p> 
   </div>
@@ -27,9 +27,17 @@ export default {
       const res = await axios.get("http://localhost:8122/api").catch((err) => console.log(err));
       console.log(res);
     },
+    async postUser() {
+      try{
+        response.send("email", "password")
+      }
+      catch(err){
+        console.log(err)
+      }
+    }
   },
   mounted() {
-    this.getMethod();
+    // this.getMethod();
   },
 };
 </script>
