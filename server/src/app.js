@@ -1,9 +1,11 @@
 const express = require("express")
 const app = express()
 const cors = require("cors")
-// const { application } = require("express")
+const { application } = require("express")
 const db = require('../config/database')
 const port = 8122
+
+const link = db.collection("link")
 
 app.use(express.json())
 app.use(cors())
@@ -11,23 +13,6 @@ app.use(cors())
 app.listen(port, () => {
     console.log("App listening to Port 8122")
 })
-
-// app.post("/api/register", async(req, res) => {
-//     try{
-//         console.log(req.body)
-//         res.send("berhasil ditambah")
-//         await user.add({
-//             username: req.body.username,
-//             password: req.body.password
-//         })
-//         res.send({
-//             message: "data telah terkirim"
-//         })
-//     }
-//     catch(err) {
-//         console.log(err)
-//     }
-// })
 
 app.post("/api/register", async(req,res) => {
     try {
@@ -47,9 +32,41 @@ app.post("/api/register", async(req,res) => {
     }
 })
 
-
+app.get("/link", async(req, res) => {
+    try{
+        let links=[]
+        link.get().then((querySnapshot)=>{
+            querySnapshot.forEach((doc)=>{
+                let id = doc.id
+                links.push({id, ...doc.data()})
+            })
+            res.send(links)
+        })
+    }
+    catch(err){
+        console.log(err)
+    }
+})
 
 
 // app.get("/api", async(req, res) => {
-//     res.send("Hello World")
-// })
+    //     res.send("Hello World")
+    // })
+    
+    
+    // app.post("/api/register", async(req, res) => {
+    //     try{
+    //         console.log(req.body)
+    //         res.send("berhasil ditambah")
+    //         await user.add({
+    //             username: req.body.username,
+    //             password: req.body.password
+    //         })
+    //         res.send({
+    //             message: "data telah terkirim"
+    //         })
+    //     }
+    //     catch(err) {
+    //         console.log(err)
+    //     }
+    // })

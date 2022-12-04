@@ -4,40 +4,50 @@
     <input type="text" placeholder="url"/>
     <button type="submit">Submit</button>
   </div>
-  <div class="list" v-for="item in items" :key="item">
-    <div class="box">
-      <h3 class="content">{{ item.slink }}</h3>
-      <h3 class="content">{{ item.link }}</h3>
-      <h3 class="content">{{ item.uses }}</h3>
+  <div class="list" >
+    <div class="box" v-for="link in links" :key="link">
+      <h3 class="content">{{ link.slink }}</h3>
+      <h3 class="content">{{ link.flink }}</h3>
+      <h3 class="content">{{ link.uses }}</h3>
     </div>
   </div>
 </template>
 
 <script>
-  export default {
+import axios from 'axios'
+
+export default {
     data(){
       return {
-        items: [
-          {
-            slink: 'awik.wok',
-            link: 'www.youtube.com/watch?v=YOEHN2g5vFU',
-            uses: 1
-          },
-          {
-            slink: 'awik.wok',
-            link: 'www.youtube.com/watch?v=YOEHN2g5vFU',
-            uses: 1
-          },
-        ]
+        links: [
+          // {
+          //   slink: 'awik.wok',
+          //   link: 'www.youtube.com/watch?v=YOEHN2g5vFU',
+          //   uses: 1
+          // },
+          // {
+          //   slink: 'awik.wok',
+          //   link: 'www.youtube.com/watch?v=YOEHN2g5vFU',
+          //   uses: 1
+          // },
+        ],
       }
     },
     methods: {
-      getLink() {
-        
+      async getLink() {
+        try{
+          const res = await axios.get('http://localhost:8122/link')
+          .then((response)=>{
+            this.links.push(...response.data)
+          })
+        }
+        catch(err){
+          console.log(err)
+        }
       }
     },
     mounted() {
-      
+      this.getLink();
     }
   }
 </script>
