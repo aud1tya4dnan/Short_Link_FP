@@ -3,8 +3,9 @@ const app = express()
 const cors = require("cors")
 const { application } = require("express")
 const db = require('../config/database')
-const getAuth = require("firebase/auth")
-const createUserWithEmailAndPassword = require("firebase/auth")
+// const { getAuth, createUserWithEmailAndPassword } = require("../config/auth")
+const { getAuth,createUserWithEmailAndPassword } = require("firebase/auth")
+
 
 
 const port = 8122
@@ -22,10 +23,13 @@ app.listen(port, () => {
 })
 
 app.post("/api/register", async(req, res, next) => {
+
     const auth = getAuth();
     createUserWithEmailAndPassword(auth, email, password)
     .then((userCredential) => {
         // Signed in 
+        // const email = this.email;
+        // const password = this.password;
         const user = userCredential.user;
         // ...
     })

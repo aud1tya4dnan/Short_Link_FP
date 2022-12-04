@@ -32,10 +32,9 @@ export default {
     //     console.log(res);
     // },
     async postUser(email, password) {
-        
             const res = await axios.post(`http://localhost:8122/api/register`, {
-                email: email,
-                password: password
+                email: this.email,
+                password: this.password
             })
             .then((response) => {
                 console.log(response)
