@@ -11,6 +11,7 @@
       <h3 class="content">{{ link.uses }}</h3>
     </div>
   </div>
+  
 </template>
 
 <script>
@@ -19,31 +20,15 @@ import axios from 'axios'
 export default {
     data(){
       return {
-        links: [
-          // {
-          //   slink: 'awik.wok',
-          //   link: 'www.youtube.com/watch?v=YOEHN2g5vFU',
-          //   uses: 1
-          // },
-          // {
-          //   slink: 'awik.wok',
-          //   link: 'www.youtube.com/watch?v=YOEHN2g5vFU',
-          //   uses: 1
-          // },
-        ],
+        links: [],
       }
     },
     methods: {
       async getLink() {
-        try{
-          const res = await axios.get('http://localhost:8122/link')
+        const res = await axios.get('http://localhost:8122/link')
           .then((response)=>{
             this.links.push(...response.data)
           })
-        }
-        catch(err){
-          console.log(err)
-        }
       }
     },
     mounted() {

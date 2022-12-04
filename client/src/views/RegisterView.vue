@@ -3,11 +3,11 @@
     <h1 style="text-align: center">Register</h1>   
     <div class="username">
         <label>Email</label><br />
-        <input type="text" placeholder="email" v-model="email"/>
+        <input type="text" placeholder="email" v-model="email" class="type"/>
     </div>
     <div class="password"></div>
         <label class="password">Password</label><br />
-        <input type="password" placeholder="password" v-model="password"/>
+        <input type="password" placeholder="password" v-model="password" class="type"/>
         <div class="submit">
             <button type="submit" @click="postUser(email, password)">Submit</button>
       </div>
@@ -25,14 +25,8 @@ export default {
     };
     },
     methods: {
-    // async getMethod() {
-    //     const res = await axios
-    //     .get("http://localhost:8122/api")
-    //     .catch((err) => console.log(err));
-    //     console.log(res);
-    // },
     async postUser(email, password) {
-            const res = await axios.post(`http://localhost:8122/api/register`, {
+            const res = await axios.post(`http://localhost:3000/api/register`, {
                 email: this.email,
                 password: this.password
             })
@@ -40,7 +34,9 @@ export default {
                 console.log(response)
             })
             .catch((error) => {
-                console.log(error);
+                console.log(response)
+                alert("Registration Success")
+                this.$router.push('/')
             })
     }
     
@@ -51,7 +47,7 @@ export default {
 };
 </script>
 
-<style>
+<style scoped>
     .registerview {
         border: 3px solid;
         border-radius: 10%;
