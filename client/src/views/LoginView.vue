@@ -5,35 +5,42 @@
       <label>Email</label><br />
       <input type="text" placeholder="Email" v-model="email" class="type"/>
     </div>
-    <div class="password">
+    <div class="pass">
       <label class="password">Password</label><br />
       <input type="password" placeholder="Password" v-model="password" class="type"/>
     </div>
-    <div> 
-      <button type="submit" class="submit" >Submit</button>
+    <div class="sub"> 
+      <button type="submit" class="submit" @click="postUser()">Submit</button>
     </div>
-    <p>Dont have an account? <RouterLink to="/regis">Register</RouterLink> </p> 
+    <p>Dont have an account? <RouterLink to="/register">Register</RouterLink> </p> 
   </div>
+  <!-- <RouterLink to="/dashboard">Dashboard</RouterLink> -->
 </template>
 
 <script>
 import axios from "axios";
 export default {
   data() {
-    return {};
+    return {
+      status: false,
+    };
   },
   methods: {
-    async getMethod() {
-      const res = await axios.get("http://localhost:8122/api").catch((err) => console.log(err));
-      console.log(res);
-    },
     async postUser() {
-      try{
-        response.send("email", "password")
-      }
-      catch(err){
-        console.log(err)
-      }
+      let res = await axios.post(`http://localhost:8000/api/login`, {
+                email: this.email,
+                password: this.password
+            })
+            .then((response) => {
+                console.log(response)
+                alert("Login Success")
+
+            })
+            .catch((error) => {
+                console.log(response)
+                alert("Login Failed")
+                this.$router.push('/dashboard')
+            })
     }
   },
   mounted() {
@@ -46,15 +53,21 @@ export default {
   .loginview{
     border: 3px solid;
     border-radius: 10%;
-    padding: 30px;
+    padding: 30px 30px;
   }
   .username{
     margin-bottom: 10px;
   }
-  .password{
+  .pass{
     margin-bottom: 15px;
   }
 
+  p{
+    margin-bottom: 15px;
+  }
+  .sub{
+    margin-bottom: 10px;
+  }
 .submit {
 	box-shadow: 3px 4px 0px 0px #8a2a21;
 	background:linear-gradient(to bottom, #c62d1f 5%, #f24437 100%);
@@ -63,12 +76,11 @@ export default {
 	border: 3px solid #d02718;
 	display: inline-block;
 	cursor: pointer;
-	color: "#ffffff";
+	color:#ffffff;
 	font-family:Impact;
-	font-size: 10px;
-	padding: 9px 29px;
-	text-decoration:none;
-	text-shadow: 4px 5px 5px #810e05;
+	font-size: 12px;
+	padding: 4px 100px;
+	text-decoration: none;
 }
 .submit:hover {
 	background:linear-gradient(to bottom, #f24437 5%, #c62d1f 100%);
