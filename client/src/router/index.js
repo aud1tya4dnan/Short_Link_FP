@@ -1,13 +1,15 @@
 import { createRouter, createWebHistory } from 'vue-router'
 import LoginView from '../views/LoginView.vue'
 import RegisterView from '../views/RegisterView.vue'
+import FrontView from '../views/FrontView.vue'
+import Notfound from '../views/NotFound.vue'
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
   routes: [
     {
       path: '/',
-      name: 'auth',
+      name: 'login',
       component: LoginView
     },
     {
@@ -19,7 +21,17 @@ const router = createRouter({
       path: '/dashboard/:uid',
       name: 'dashboard',
       component: () => import('../views/DashboardView.vue')
-    }
+    },
+    {
+      path: '/frontpage',
+      name: 'frontpage',
+      component: FrontView
+    },
+    {
+      path: "/:catchAll(.*)",
+      name: "notfound",
+      component: Notfound
+    },
   ]
 })
 

@@ -1,4 +1,7 @@
 <template>
+  <div class="title">
+    <h1>AWIK.WOK</h1>
+  </div>
   <div class="loginview">
     <h1 style="text-align: center">Login</h1>
     <div class="username">
@@ -14,7 +17,6 @@
     </div>
     <p>Dont have an account? <RouterLink to="/register">Register</RouterLink> </p> 
   </div>
-  <!-- <RouterLink to="/dashboard">Dashboard</RouterLink> -->
 </template>
 
 <script>
@@ -29,30 +31,48 @@ export default {
     async postUser() {
       let res = await axios.post(`http://localhost:8000/api/login`, {
                 email: this.email,
-                password: this.password
+                password: this.password,
             })
             .then((response) => {
               const uid = response.data
               //res.send(uid)
                 console.log(uid)
-                localStorage.setItem('uid', uid)
-                this.$router.push({path: `/dashboard/${uid}`})
+                // localStorage.setItem('uid', uid)
+                // this.$router.push({path: `/dashboard/${uid}`})
                 console.log(response)
+                if(response == "auth/wrong-password" && response == "auth/missing-email") {
+                  this.$router.push("/")
+                }
+                else {
+                  localStorage.setItem('uid', uid)
+                  this.$router.push({path: `/dashboard/${uid}`})
+                }
             })
             .catch((error) => {
                 console.log(error)
                 this.$router.push("/")
             })
-    }
+    },
+    // checkForm() {
+    //   let email = this.email;
+    //   let password = this.password;
+    //   if (email == "" || password == "") {
+    //     alert("Ada yang kosong ngab")
+    //     return false;
+    //   }
+    //   else{
+    //     this.postUser();
+    //   }
+    // }
   },
-  mounted() {
-    // this.getMethod();
+  beforeMount() {
   },
 };
+
 </script>
 
 <style scoped>
-  .loginview{
+.loginview{
     border: 3px solid;
     border-radius: 10%;
     padding: 30px 30px;
@@ -103,7 +123,10 @@ export default {
      border-radius: 12px;
      box-shadow: 0px 0px 3px rgba(66,66,66,.75);;
 }
- .type:focus {
+.type:focus {
      outline:none;
+}
+.title {
+  display: flex;
 }
 </style>

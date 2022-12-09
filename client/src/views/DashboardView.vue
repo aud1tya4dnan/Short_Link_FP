@@ -44,12 +44,6 @@ export default {
       }
     },
     methods: {
-      async getLink() {
-        const res = await axios.get('http://localhost:8000/link')
-          .then((response)=>{
-            this.links.push(...response.data)
-          })
-      },
       async Logout() {
         try {
           signOut(auth)
@@ -61,7 +55,13 @@ export default {
         catch(error){
           console.log(error)
         }
-      }
+      },
+      async getLink() {
+        const res = await axios.get('http://localhost:8000/link')
+          .then((response)=>{
+            this.links.push(...response.data)
+          })
+      },
     },
     mounted() {
       this.getLink();

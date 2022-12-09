@@ -1,19 +1,19 @@
 @import './base.css';
-
+/* 
 #app {
   max-width: 2144px;
   margin: 0 auto;
   padding: 2rem;
 
-  /* font-weight: bold; */
-}
+  font-weight: bold;
+} */
 
-a,
+/* a,
 .green {
   text-decoration: none;
   color: rgb(0, 0, 0);
   transition: 0.4s;
-}
+} */
 
 
 @media (hover: hover) {

@@ -36,11 +36,31 @@ import { RouterLink, RouterView } from 'vue-router'
 
 </script>
 
-<style scoped>
-header {
+<style>
+@media (min-width: 100px) {
+  body {
+    display: flex;
+    place-items: center;
+    background: linear-gradient(52deg, #963030, #3930b4);
+    background-size: 400% 400%;
+    animation: AnimationName 15s ease infinite;
+  }
+  @keyframes AnimationName {
+    0% {
+      background-position: 0% 50%;
+    }
+    50% {
+      background-position: 100% 50%;
+    }
+    100% {
+      background-position: 0% 50%;
+    }
+  }
+}
+/* header {
   line-height: 1.5;
   max-height: 100vh;
-}
+} */
 
 .logo {
   display: block;
@@ -98,4 +118,6 @@ nav a:first-of-type {
     margin-top: 1rem;
   }
 }
+
 </style>
+<!-- @media (min-width: 100px) { }-->

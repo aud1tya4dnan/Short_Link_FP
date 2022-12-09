@@ -9,11 +9,15 @@
         <label class="password">Password</label><br />
         <input type="password" placeholder="Password" v-model="password" class="type" required/>
     </div>
+    <!-- <div class="pass">
+        <label class="password">Password</label><br />
+        <input type="password" placeholder="Confirm Password" required/>
+    </div> -->
     <div class="sub">
         <button type="submit" @click="postUser()" class="submit">Submit</button>
     </div>
     <p class="acc">Have an account? <RouterLink to="/">Login</RouterLink></p>
-</div>
+  </div>
 </template>
 
 <script>
