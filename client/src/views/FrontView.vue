@@ -1,60 +1,67 @@
 <template>
-  <nav class="menu-container">
-    <!-- burger menu -->
-    <input type="checkbox" aria-label="Toggle menu" />
+    <nav class="menu-container">
+  <input type="checkbox" aria-label="Toggle menu" />
     <span></span>
     <span></span>
     <span></span>
-    <!-- logo -->
     <a href="#" class="menu-logo">
-      <img src="" alt="" />
+    <img src="./assets/logo.png" alt="AWIK.WOK"/>
     </a>
-    <!-- menu items -->
     <div class="menu">
-      <ul></ul>
-      <ul>
+        <ul>
+        </ul>
+        <ul>
         <li>
-          <a href="#signup"> Sign-up </a>
+            <a href="#signup">
+            Sign-up
+            </a>
         </li>
         <li>
-          <a href="#login"> Login </a>
+            <a href="#login">
+            Login
+            </a>
         </li>
-      </ul>
+        </ul>
     </div>
-  </nav>
+</nav>
 </template>
 
 <style scoped>
 .menu-container {
-  position: relative;
-  display: flex;
-  align-items: center;
-  margin-bottom: 20px;
-  background: #232323;
-  color: #cdcdcd;
-  padding: 20px;
-  z-index: 1;
-  -webkit-user-select: none;
-  user-select: none;
-  box-sizing: border-box;
+    position: relative;
+    display: flex;
+    align-items: center;
+    margin-bottom: 20px;
+    background: #232323;
+    color: #cdcdcd;
+    padding: 20px;
+    z-index: 1;
+    -webkit-user-select: none;
+    user-select: none;
+    box-sizing: border-box;
 }
+
 .menu-logo {
-  line-height: 0;
-  margin: 0 20px;
+    line-height: 0;
+    margin: 0 20px;
 }
+
 .menu-logo img {
-  max-height: 40px;
-  max-width: 100px;
-  flex-shrink: 0;
+    max-height: 40px;
+    max-width: 100px;
+    flex-shrink: 0;
 }
+
 .menu-container a {
   text-decoration: none;
   color: #232323;
   transition: color 0.3s ease;
 }
+
 .menu-container a:hover {
-  color: #00c6a7;
+  color: #00C6A7;
 }
+
 .menu-container input {
   display: block;
   width: 35px;
@@ -66,61 +73,73 @@
   z-index: 2; /* and place it over the hamburger */
   -webkit-touch-callout: none;
 }
+
 /* Burger menu */
 .menu-container span {
-  display: block;
-  width: 33px;
-  height: 4px;
-  margin-bottom: 5px;
-  position: relative;
-  background: #cdcdcd;
-  border-radius: 3px;
-  z-index: 1;
-  transform-origin: 4px 0px;
-  transition: transform 0.5s cubic-bezier(0.77, 0.2, 0.05, 1);
-  background: 0.5s cubic-bezier(0.77, 0.2, 0.05, 1), opacity 0.55s ease;
+    display: block;
+    width: 33px;
+    height: 4px;
+    margin-bottom: 5px;
+    position: relative;
+    background: #cdcdcd;
+    border-radius: 3px;
+    z-index: 1;
+    transform-origin: 4px 0px;
+    transition: transform 0.5s cubic-bezier(0.77,0.2,0.05,1.0);
+    background: 0.5s cubic-bezier(0.77,0.2,0.05,1.0);
+    opacity: 0.55s ease;
 }
+
 .menu-container span:first-child {
   transform-origin: 0% 0%;
 }
+
 .menu-container span:nth-child(3) {
   transform-origin: 0% 100%;
 }
+
 .menu-container input:checked ~ span {
   opacity: 1;
-  transform: rotate(45deg) translate(3px, -1px);
+  transform: rotate(45deg) translate(3px,-1px);
   background: #232323;
 }
+
 .menu-container input:checked ~ span:nth-child(4) {
   opacity: 0;
   transform: rotate(0deg) scale(0.2, 0.2);
 }
+
 .menu-container input:checked ~ span:nth-child(3) {
-  transform: rotate(-45deg) translate(-5px, 11px);
+  transform: rotate(-45deg) translate(-5px,11px);
 }
+
 .menu ul {
   list-style: none;
 }
+
 .menu li {
   padding: 10px 0;
   font-size: 22px;
 }
+
 /* mobile styles */
-@media only screen and (max-width: 767px) {
+@media only screen and (max-width: 767px) { 
   .menu-container {
     flex-direction: column;
     align-items: flex-end;
   }
-
+  
   .menu-logo {
     position: absolute;
     left: 0;
     top: 50%;
     transform: translateY(-50%);
   }
+
   .menu-logo img {
     max-height: 30px;
   }
+
   .menu {
     position: absolute;
     box-sizing: border-box;
@@ -131,39 +150,48 @@
     padding: 75px 50px 50px;
     background: #cdcdcd;
     -webkit-font-smoothing: antialiased;
+    /* to stop flickering of text in safari */
     transform-origin: 0% 0%;
     transform: translateX(0%);
-    transition: transform 0.5s cubic-bezier(0.77, 0.2, 0.05, 1);
+    transition: transform 0.5s cubic-bezier(0.77,0.2,0.05,1.0);
   }
+
   .menu-container input:checked ~ .menu {
     transform: translateX(-100%);
   }
 }
+
 /* desktop styles */
-@media only screen and (min-width: 768px) {
+@media only screen and (min-width: 768px) { 
   .menu-container {
     width: 100%;
   }
+
   .menu-container a {
     color: #cdcdcd;
   }
+
   .menu-container input {
     display: none;
   }
+
   /* Burger menu */
   .menu-container span {
     display: none;
   }
+
   .menu {
     position: relative;
     width: 100%;
     display: flex;
     justify-content: space-between;
   }
+
   .menu ul {
     display: flex;
     padding: 0;
   }
+
   .menu li {
     padding: 0 20px;
   }

@@ -76,8 +76,8 @@ export default {
     border: 3px solid;
     border-radius: 10%;
     padding: 30px 30px;
-  }
-  .username{
+}
+.username{
     margin-bottom: 10px;
   }
   .pass{
