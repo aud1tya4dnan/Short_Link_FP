@@ -1,11 +1,11 @@
 <template>
-  <div>
-    <h1 class="title">AWIK.WOK /</h1>
-    <input type="text" placeholder="alias" class="alias"/>
-  </div>
+
   <div class="inputlink">
-    <input type="text" placeholder="url" class="type"/>
+    <input type="text" placeholder="www.google.com" class="type"/>
     <button type="submit" class="submit">Submit</button>
+  </div>
+  <div>
+    <h5 class="title">AWIK.WOK/<input type="text" placeholder="alias" class="alias"/></h5>
   </div>
   <div class="list" >
     <div class="box" v-for="link in links" :key="link">
@@ -13,13 +13,29 @@
       <h3 class="content">{{ link.flink }}</h3>
       <h3 class="content">{{ link.uses }}</h3>
     </div>
-  </div>
-  <RouterLink to="/">Sign Out</RouterLink>
-  
+  </div>  
+
+  <button @click="Logout()">Sign Out</button>
 </template>
 
 <script>
+import { initializeApp } from "firebase/app";
+import { signOut, getAuth } from 'firebase/auth'
+// https://firebase.google.com/docs/web/setup#available-libraries
+const firebaseConfig = {
+  apiKey: "AIzaSyAlrXLHO4N6iwQnftLRDq52zSzmUwU43Lc",
+  authDomain: "expressjs-fp.firebaseapp.com",
+  projectId: "expressjs-fp",
+  storageBucket: "expressjs-fp.appspot.com",
+  messagingSenderId: "35720847152",
+  appId: "1:35720847152:web:f030a0e97b6aef23f332f5"
+};
+const app = initializeApp(firebaseConfig);
+const auth = getAuth()
+
 import axios from 'axios'
+
+
 
 export default {
     data(){
@@ -33,6 +49,18 @@ export default {
           .then((response)=>{
             this.links.push(...response.data)
           })
+      },
+      async Logout() {
+        try {
+          signOut(auth)
+          .then(() => {
+            localStorage.removeItem('uid')
+            this.$router.push("/")
+          })
+        }
+        catch(error){
+          console.log(error)
+        }
       }
     },
     mounted() {
@@ -92,8 +120,8 @@ export default {
      outline:none;
 }
 .alias{
-     padding: 20px 5px;
-     font-size: 30px;
+     padding: 10px;
+     font-size: 25px;
      border-width: 1px;
      border-color: #ff00e4;
      background-color: #ffffff;

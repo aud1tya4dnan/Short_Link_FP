@@ -16,7 +16,7 @@ const router = createRouter({
       component: RegisterView
     },
     {
-      path: '/dashboard',
+      path: '/dashboard/:uid',
       name: 'dashboard',
       component: () => import('../views/DashboardView.vue')
     }

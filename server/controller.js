@@ -26,6 +26,10 @@ router.post("/api/register", async(req, res) => {
     }
 })
 
+router.post("/api/link", async(req,res) => {
+
+})
+
 router.get("/link", async(req,res) => {
     try{
         db.collection("link")
@@ -51,7 +55,11 @@ router.post("/api/login", async(req, res, next) => {
     try{
         signInWithEmailAndPassword(auth, email, password)
         .then((userCredential) => {
-            res.send(userCredential)
+            const user = userCredential.user;
+            const uid = user.uid;
+
+            res.send(uid)
+            
         })
         .catch((error) => {
             const errorCode = error.code;
@@ -63,5 +71,7 @@ router.post("/api/login", async(req, res, next) => {
         console.log(err)
     }
 })
+
+
 
 export default router;

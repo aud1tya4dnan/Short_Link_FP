@@ -32,14 +32,16 @@ export default {
                 password: this.password
             })
             .then((response) => {
+              const uid = response.data
+              //res.send(uid)
+                console.log(uid)
+                localStorage.setItem('uid', uid)
+                this.$router.push({path: `/dashboard/${uid}`})
                 console.log(response)
-                alert("Login Success")
-
             })
             .catch((error) => {
-                console.log(response)
-                alert("Login Failed")
-                this.$router.push('/dashboard')
+                console.log(error)
+                this.$router.push("/")
             })
     }
   },
