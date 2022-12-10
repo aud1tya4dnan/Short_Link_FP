@@ -13,7 +13,7 @@
       <input type="password" placeholder="Password" v-model="password" class="type"/>
     </div>
     <div class="sub"> 
-      <button type="submit" class="submit" @click="postUser()">Submit</button>
+      <button type="submit" class="submit" @click="postUser()" v-on:keyup.enter="postUser()">Submit</button>
     </div>
     <p>Dont have an account? <RouterLink to="/register">Register</RouterLink> </p> 
   </div>
@@ -37,16 +37,9 @@ export default {
               const uid = response.data
               //res.send(uid)
                 console.log(uid)
-                // localStorage.setItem('uid', uid)
-                // this.$router.push({path: `/dashboard/${uid}`})
+                localStorage.setItem('uid', uid)
+                this.$router.push({path: `/dashboard/${uid}`})
                 console.log(response)
-                if(response == "auth/wrong-password" && response == "auth/missing-email") {
-                  this.$router.push("/")
-                }
-                else {
-                  localStorage.setItem('uid', uid)
-                  this.$router.push({path: `/dashboard/${uid}`})
-                }
             })
             .catch((error) => {
                 console.log(error)

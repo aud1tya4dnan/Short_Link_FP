@@ -35,12 +35,12 @@ export default {
             })
             .then((response) => {
                 console.log(response)
-                alert("Registration Success")
+                status: success;
                 this.$router.push('/')
             })
             .catch((error) => {
                 console.log(response)
-                alert("Register Failed")
+                status: failed;
             })
     }
     
