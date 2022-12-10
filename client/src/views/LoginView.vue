@@ -3,7 +3,7 @@
     <h1>AWIK.WOK</h1>
   </div>
   <div class="loginview">
-    <h1 style="text-align: center">Login</h1>
+    <h1>Login</h1>
     <div class="username">
       <label>Email</label><br />
       <input type="text" placeholder="Email" v-model="email" class="type"/>
@@ -21,6 +21,7 @@
 
 <script>
 import axios from "axios";
+
 export default {
   data() {
     return {
@@ -34,8 +35,7 @@ export default {
                 password: this.password,
             })
             .then((response) => {
-              const uid = response.data
-              //res.send(uid)
+                const uid = response.data
                 console.log(uid)
                 localStorage.setItem('uid', uid)
                 this.$router.push({path: `/dashboard/${uid}`})
@@ -58,9 +58,10 @@ export default {
     //   }
     // }
   },
-  beforeMount() {
-  },
+
 };
+
+
 
 </script>
 

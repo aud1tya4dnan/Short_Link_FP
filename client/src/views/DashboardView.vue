@@ -1,72 +1,109 @@
 <template>
+  <button @click="Logout()">Sign Out</button>
 
   <div class="inputlink">
-    <input type="text" placeholder="www.google.com" class="type"/>
-    <button type="submit" class="submit">Submit</button>
+    <input type="text" placeholder="www.google.com" class="type" v-model="flink"/>
   </div>
+
   <div>
     <h5 class="title">AWIK.WOK/<input type="text" placeholder="alias" class="alias"/></h5>
+    <button type="submit" class="submit"  @click="postLink()">Submit</button>
   </div>
-  <div class="list" >
-    <div class="box" v-for="link in links" :key="link">
+  
+  <div class="edit" v-show="editbar">
+    <input type="text" placeholder="new slink" v-model="newLinks.newslink" />
+    <input type="text" placeholder="new url" v-model="newLinks.newflink"/>
+    <button type="submit" @click="editLink()">Submit Edit</button>
+  </div>
+
+  <div class="list" v-for="link in links" :key="link">
+    <div class="box" v-if="link.uid == userID">
       <h3 class="content">{{ link.slink }}</h3>
       <h3 class="content">{{ link.flink }}</h3>
       <h3 class="content">{{ link.uses }}</h3>
+      <button class="content"> Edit </button>
+      <button class="content" @click="deleteLink(link.id)"> Delete </button>
     </div>
   </div>  
 
-  <button @click="Logout()">Sign Out</button>
+  
+
 </template>
 
 <script>
 import { initializeApp } from "firebase/app";
-import { signOut, getAuth } from 'firebase/auth'
-// https://firebase.google.com/docs/web/setup#available-libraries
-const firebaseConfig = {
-  apiKey: "AIzaSyAlrXLHO4N6iwQnftLRDq52zSzmUwU43Lc",
-  authDomain: "expressjs-fp.firebaseapp.com",
-  projectId: "expressjs-fp",
-  storageBucket: "expressjs-fp.appspot.com",
-  messagingSenderId: "35720847152",
-  appId: "1:35720847152:web:f030a0e97b6aef23f332f5"
-};
-const app = initializeApp(firebaseConfig);
-const auth = getAuth()
+import { signOut, getAuth } from "firebase/auth"
+import { auth } from '../firebase.js'
 
 import axios from 'axios'
 
-
-
 export default {
-    data(){
-      return {
-        links: [],
+  data(){
+    return {
+      links: [],
+      flink: "",
+      userID: "",
+      newLinks: [{
+        newflink: '',
+        newslink: '',
+      }],
+      editbar: false,
+    }
+  },
+  methods: {
+    async Logout() {
+      try {
+        signOut(auth)
+        .then(() => {
+          localStorage.removeItem('uid')
+          this.$router.push("/")
+        })
+      }
+      catch(error){
+        console.log(error)
       }
     },
-    methods: {
-      async Logout() {
-        try {
-          signOut(auth)
-          .then(() => {
-            localStorage.removeItem('uid')
-            this.$router.push("/")
-          })
+    async getLink() {
+      this.userID = localStorage.getItem('uid')
+      console.log(this.userID)
+      const res = await axios.get('http://localhost:8000/link')
+        .then((response)=>{
+          this.links.push(...response.data)
+          console.log(response.data)
         }
-        catch(error){
-          console.log(error)
-        }
-      },
-      async getLink() {
-        const res = await axios.get('http://localhost:8000/link')
-          .then((response)=>{
-            this.links.push(...response.data)
-          })
-      },
+      )
     },
-    mounted() {
-      this.getLink();
+    async postLink() {
+      const res = await axios.post('http://localhost:8000/link', {
+        flink: this.flink,
+        slink: "random",
+        uid: this.userID,
+        uses: 1,
+      })
+      .then((response) =>{
+        console.log(response.data)
+        location.reload()
+      })
+    },
+    async deleteLink(id) {
+      const res = await axios.delete('http://localhost:8000/link/' + id)
+      .then((response)=>{
+        console.log(response.data)
+        location.reload()
+      })
+    },
+    async editLink() {
+      const res = await axios.patch('http://localhost:8000/link/' + id)
+      .then((response) => {
+        // this.links.push(...response.data)
+        console.log(response.data)
+      })
     }
+  }, 
+  mounted() {
+    this.getLink();
   }
+}
 </script>
 
 <style>
@@ -83,7 +120,7 @@ export default {
   .content{
     margin-right: 50px;
   }
-  .submit {
+  button {
 	box-shadow: 3px 4px 0px 0px #8a2a21;
 	background:linear-gradient(to bottom, #c62d1f 5%, #f24437 100%);
 	background-color: "#c62d1f";
@@ -97,11 +134,11 @@ export default {
 	padding:4px 27px;
 	text-decoration:none;
 }
-  .submit:hover {
+  button:hover {
 	background:linear-gradient(to bottom, #f24437 5%, #c62d1f 100%);
 	background-color:#f24437;
 }
-.submit:active {
+button:active {
 	position:relative;
 	top:1px;
 }
