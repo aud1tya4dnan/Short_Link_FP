@@ -26,8 +26,28 @@ router.post("/api/register", async(req, res) => {
     }
 })
 
-router.post("/api/link", async(req,res) => {
-
+router.post("/link", async(req,res) => {
+    try {
+        var flink = req.body.flink;
+        var slink = req.body.slink;
+        var uid = req.body.uid;
+        var uses = req.body.uses;
+    
+        db.collection("link").add({
+          flink: flink,
+          slink: slink,
+          uid: uid,
+          uses: uses,
+        });
+    
+        res.send({
+          message: "Data berhasil disimpan",
+        });
+      } catch (error) {
+        res.send({
+          message: "Data gagal disimpan",
+        });
+      }
 })
 
 router.get("/link", async(req,res) => {
@@ -49,7 +69,7 @@ router.get("/link", async(req,res) => {
     }
 })
 
-router.post("/api/login", async(req, res, next) => {
+router.post("/api/login", async(req, res) => {
     let email = req.body.email
     let password = req.body.password
     try{
@@ -72,6 +92,35 @@ router.post("/api/login", async(req, res, next) => {
     }
 })
 
+router.delete("/link/:id", async(req, res) => {
+    try {
+        db.collection("link")
+        .doc(req.params.id)
+        .delete()
+        .then(() => {
+            res.send("delete berhasil")
+        })
+    }
+    catch(error){
+        res.send(error)
+    }
+})
 
+router.patch("/link/:id", async(req,res) => {
+    try{
+        db.collection("link")
+        .doc()
+        .update({
+            flink: req.body.newflink,
+            slink: req.body.newslink
+        })
+        .then(() => {
+            res.send("Berhasil Di update")
+        })
+    }
+    catch(error) {
+        res.send(error.message)
+    }
+})
 
 export default router;
