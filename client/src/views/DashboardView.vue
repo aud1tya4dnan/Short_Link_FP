@@ -4,9 +4,8 @@
     <span></span>
     <span></span>
     <span></span>
-    <a class="menu-logo">
+    <a class="menu-logo"></a>
     <h2>AWIK.WOK</h2>
-    </a>
     <div class="menu">
         <ul>
         </ul>
@@ -22,7 +21,7 @@
   <!-- <button @click="Logout()">Sign Out</button> -->
 
   <div class="inputlink">
-    <input type="text" placeholder="www.google.com" class="type" v-model="flink"/>
+    <input type="text" placeholder="https://www.google.com" class="type" v-model="flink"/>
   </div>
 
   <div>
@@ -50,7 +49,7 @@
     </thead>
     <tbody v-for="link in links" :key="link">
       <tr v-if="link.uid == userID">
-        <th><a target="_blank" v-bind:href="'http://127.0.0.1/' + link.slink">{{ link.slink }}</a></th>
+        <th><a target="_blank" v-bind:href="'http://127.0.0.1:5173/' + link.slink">awik.wok/{{ link.slink }}</a></th>
         <td>{{ link.flink }}</td>
         <td scope="row">{{ link.uses }}</td>
         <td><button class="content" @click="editLink(link.id)"> Edit </button></td>

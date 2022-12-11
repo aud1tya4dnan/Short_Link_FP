@@ -31,7 +31,7 @@
                         <input type="password" class="form-control border border-primary" id="exampleInputPassword1" v-model="password">
                     </div>
                     <div class="d-grid">
-                        <button class="btn btn-primary" type="submit" @click="postUser()">Login</button>
+                        <input type="button" class="btn btn-primary" @click="postUser()" value="Register">
                     </div>
                 </form>
                 <div class="mt-3">

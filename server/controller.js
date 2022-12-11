@@ -80,8 +80,7 @@ router.post("/api/login", async(req, res) => {
         })
         .catch((error) => {
             const errorCode = error.code;
-            const errorMessage = error.message;
-            res.send(errorMessage)
+            res.send(errorCode)
     });
     }
     catch(err){
@@ -127,7 +126,7 @@ router.get("/api/redirectLink", async (req, res) => {
     let flink = ''
     console.log(url)
     try {
-        const q = query(collection(db, "link"), where("slink", "==", url));
+        const q = query(collection(db, "link"), where("slink", "==", url.replace("http://127.0.0.1:5173/", "")));
 
         console.log("masuk try")
 
