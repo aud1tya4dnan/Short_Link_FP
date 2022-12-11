@@ -3,7 +3,6 @@ import bodyParser from "body-parser";
 import { async } from "@firebase/util";
 import { db, auth } from "./firebase.js"
 import { getAuth, createUserWithEmailAndPassword, signInWithEmailAndPassword } from "firebase/auth"
-import { getFirestore, query, collection, doc, onSnapshot, addDoc, deleteDoc, updateDoc, where, increment, getDocs, getDoc } from 'firebase/firestore'
 
 const router = express.Router();
 
@@ -41,9 +40,13 @@ router.post("/link", async(req,res) => {
           uses: uses,
         });
     
-        res.send("Data berhasil disimpan");
+        res.send({
+          message: "Data berhasil disimpan",
+        });
       } catch (error) {
-        res.send("Data gagal disimpan");
+        res.send({
+          message: "Data gagal disimpan",
+        });
       }
 })
 
@@ -106,10 +109,10 @@ router.delete("/link/:id", async(req, res) => {
 router.patch("/link/:id", async(req,res) => {
     try{
         db.collection("link")
-        .doc(req.params.id)
+        .doc()
         .update({
             flink: req.body.newflink,
-            slink: req.body.newslink,
+            slink: req.body.newslink
         })
         .then(() => {
             res.send("Berhasil Di update")
@@ -117,45 +120,6 @@ router.patch("/link/:id", async(req,res) => {
     }
     catch(error) {
         res.send(error.message)
-    }
-})
-
-router.get("/api/redirectLink", async (req, res) => {
-    const url = req.query.url
-    let id = ''
-    let uses = 0
-    let flink = ''
-    console.log(url)
-    try {
-        const q = query(collection(db, "link"), where("slink", "==", url));
-
-        console.log("masuk try")
-
-        const querySnapshot = await getDocs(q);
-        querySnapshot.forEach((docSnap) => {
-            id = docSnap.id
-            if (docSnap == null) {
-                console.log("Cannot find associated link")
-                res.send("Cannot find associated link")
-            }
-            else {
-                const docData = docSnap.data()
-                uses = parseInt(docData.uses)
-                flink = docData.flink
-                console.log(uses)
-                console.log(flink)
-                console.log(id)
-                updateDoc(doc(db, "link", id), {
-                    uses: uses + 1
-                })
-                console.log(uses)
-            }
-        });
-        res.send(flink)
-    }
-    catch (err) {
-        console.log(err)
-        res.send(err)
     }
 })
 
