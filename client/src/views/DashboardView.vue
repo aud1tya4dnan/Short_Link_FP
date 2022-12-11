@@ -49,7 +49,7 @@
     </thead>
     <tbody v-for="link in links" :key="link">
       <tr v-if="link.uid == userID">
-        <th><a target="_blank" v-bind:href="'http://127.0.0.1:5173/' + link.slink">{{ link.slink }}</a></th>
+        <th><a target="_blank" v-bind:href="'http://127.0.0.1:5173/' + link.slink">awik.wok/{{ link.slink }}</a></th>
         <td>{{ link.flink }}</td>
         <td scope="row">{{ link.uses }}</td>
         <td><button class="content" @click="editLink(link.id)"> Edit </button></td>
