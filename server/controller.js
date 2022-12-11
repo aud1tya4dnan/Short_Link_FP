@@ -40,13 +40,9 @@ router.post("/link", async(req,res) => {
           uses: uses,
         });
     
-        res.send({
-          message: "Data berhasil disimpan",
-        });
+        res.send("Data berhasil disimpan");
       } catch (error) {
-        res.send({
-          message: "Data gagal disimpan",
-        });
+        res.send("Data gagal disimpan");
       }
 })
 
@@ -109,10 +105,10 @@ router.delete("/link/:id", async(req, res) => {
 router.patch("/link/:id", async(req,res) => {
     try{
         db.collection("link")
-        .doc()
+        .doc(req.params.id)
         .update({
             flink: req.body.newflink,
-            slink: req.body.newslink
+            slink: req.body.newslink,
         })
         .then(() => {
             res.send("Berhasil Di update")

@@ -1,30 +1,75 @@
 <template>
-  <button @click="Logout()">Sign Out</button>
+  <nav class="menu-container">
+  <input type="checkbox" aria-label="Toggle menu" />
+    <span></span>
+    <span></span>
+    <span></span>
+    <a class="menu-logo">
+    <img src="../assets/logo.png" alt="AWIK.WOK" width="30" height="24" class="d-inline-block align-text-top"/>
+    AWIK.WOK
+    </a>
+    <div class="menu">
+        <ul>
+        </ul>
+        <ul>
+        <li>
+            <a @click="Logout()">
+              Sign Out
+            </a>
+        </li>
+        <li>
+            <a href="#login">
+            Login
+            </a>
+        </li>
+        </ul>
+    </div>
+</nav>
+  <!-- <button @click="Logout()">Sign Out</button> -->
 
   <div class="inputlink">
     <input type="text" placeholder="www.google.com" class="type" v-model="flink"/>
   </div>
 
   <div>
-    <h5 class="title">AWIK.WOK/<input type="text" placeholder="alias" class="alias"/></h5>
+    <h5 class="title">AWIK.WOK/<input type="text" placeholder="alias" class="alias" v-model="slink"/></h5>
     <button type="submit" class="submit"  @click="postLink()">Submit</button>
   </div>
   
   <div class="edit" v-show="editbar">
-    <input type="text" placeholder="new slink" v-model="newLinks.newslink" />
-    <input type="text" placeholder="new url" v-model="newLinks.newflink"/>
-    <button type="submit" @click="editLink()">Submit Edit</button>
+    <input type="text" placeholder="new slink" v-model="newLink.newslink" />
+    <input type="text" placeholder="new url" v-model="newLink.newflink"/>
+    <button type="submit" @click="editHandler(newLink.id)">Submit Edit</button>
   </div>
 
-  <div class="list" v-for="link in links" :key="link">
-    <div class="box" v-if="link.uid == userID">
-      <h3 class="content">{{ link.slink }}</h3>
-      <h3 class="content">{{ link.flink }}</h3>
-      <h3 class="content">{{ link.uses }}</h3>
-      <button class="content"> Edit </button>
-      <button class="content" @click="deleteLink(link.id)"> Delete </button>
-    </div>
-  </div>  
+  <!-- <div class="list" v-for="link in links" :key="link">
+    <div class="box" v-if="link.uid == userID"> -->
+      
+  <div class="table-responsive">
+  <table class="table table-hover table-borderless table-striped">
+    <thead>
+      <tr>
+        <th scope="col">Alias</th>
+        <th scope="col">Link</th>
+        <th scope="col">Click Count</th>
+      </tr>
+    </thead>
+    <tbody v-for="link in links" :key="link">
+      <tr v-if="link.uid == userID">
+        <th><a target="_blank" v-bind:href="link.slink">{{ link.slink.replace("http://", "") }}</a></th>
+        <td>{{ link.flink }}</td>
+        <td scope="row">{{ link.uses }}</td>
+        <td><button class="content" @click="editLink(link.id)"> Edit </button></td>
+        <td><button class="content" @click="deleteLink(link.id)"> Delete </button></td>
+      </tr>
+
+    </tbody>
+
+  </table>
+  </div>
+  
+    <!-- </div> -->
+  <!-- </div>   -->
 
   
 
@@ -42,10 +87,12 @@ export default {
     return {
       links: [],
       flink: "",
+      slink: "",
       userID: "",
-      newLinks: [{
-        newflink: '',
-        newslink: '',
+      newLink: [{
+        id: "",
+        newslink: "",
+        newflink: "",
       }],
       editbar: false,
     }
@@ -76,7 +123,7 @@ export default {
     async postLink() {
       const res = await axios.post('http://localhost:8000/link', {
         flink: this.flink,
-        slink: "random",
+        slink: this.slink,
         uid: this.userID,
         uses: 1,
       })
@@ -92,13 +139,26 @@ export default {
         location.reload()
       })
     },
-    async editLink() {
-      const res = await axios.patch('http://localhost:8000/link/' + id)
-      .then((response) => {
-        // this.links.push(...response.data)
-        console.log(response.data)
+    async editHandler(id) {
+      const res = await axios.patch('http://localhost:8000/link/' + id, {
+        newflink: this.newLink.newflink,
+        newslink: this.newLink.newslink,
       })
-    }
+      .then((response) => {
+        location.reload()
+        console.log(response)
+      })
+    },
+    editLink(id){
+      this.links.forEach((link) => {
+        if(link.id == id){
+          this.newLink.id = link.id
+          this.newLink.newflink = link.flink
+          this.newLink.newslink = link.slink
+        }
+      })
+      this.editbar = true;
+    },
   }, 
   mounted() {
     this.getLink();
@@ -120,7 +180,7 @@ export default {
   .content{
     margin-right: 50px;
   }
-  button {
+  .content {
 	box-shadow: 3px 4px 0px 0px #8a2a21;
 	background:linear-gradient(to bottom, #c62d1f 5%, #f24437 100%);
 	background-color: "#c62d1f";
@@ -169,5 +229,174 @@ button:active {
 }
  .alias:focus {
      outline:none;
+}
+.menu-container {
+    position: relative;
+    display: flex;
+    align-items: center;
+    margin-bottom: 20px;
+    background: #232323;
+    color: #cdcdcd;
+    padding: 20px;
+    z-index: 1;
+    -webkit-user-select: none;
+    user-select: none;
+    box-sizing: border-box;
+}
+
+.menu-logo {
+    line-height: 0;
+    margin: 0 20px;
+}
+
+.menu-logo img {
+    max-height: 40px;
+    max-width: 100px;
+    flex-shrink: 0;
+}
+
+.menu-container a {
+  text-decoration: none;
+  color: #232323;
+  transition: color 0.3s ease;
+}
+
+.menu-container a:hover {
+  color: #00C6A7;
+}
+
+.menu-container input {
+  display: block;
+  width: 35px;
+  height: 25px;
+  margin: 0;
+  position: absolute;
+  cursor: pointer;
+  opacity: 0; /* hide this */
+  z-index: 2; /* and place it over the hamburger */
+  -webkit-touch-callout: none;
+}
+
+/* Burger menu */
+.menu-container span {
+    display: block;
+    width: 33px;
+    height: 4px;
+    margin-bottom: 5px;
+    position: relative;
+    background: #cdcdcd;
+    border-radius: 3px;
+    z-index: 1;
+    transform-origin: 4px 0px;
+    transition: transform 0.5s cubic-bezier(0.77,0.2,0.05,1.0);
+    background: 0.5s cubic-bezier(0.77,0.2,0.05,1.0);
+    opacity: 0.55s ease;
+}
+
+.menu-container span:first-child {
+  transform-origin: 0% 0%;
+}
+
+.menu-container span:nth-child(3) {
+  transform-origin: 0% 100%;
+}
+
+.menu-container input:checked ~ span {
+  opacity: 1;
+  transform: rotate(45deg) translate(3px,-1px);
+  background: #232323;
+}
+
+.menu-container input:checked ~ span:nth-child(4) {
+  opacity: 0;
+  transform: rotate(0deg) scale(0.2, 0.2);
+}
+
+.menu-container input:checked ~ span:nth-child(3) {
+  transform: rotate(-45deg) translate(-5px,11px);
+}
+
+.menu ul {
+  list-style: none;
+}
+
+.menu li {
+  padding: 10px 0;
+  font-size: 22px;
+}
+
+/* mobile styles */
+@media only screen and (max-width: 767px) { 
+  .menu-container {
+    flex-direction: column;
+    align-items: flex-end;
+  }
+  
+  .menu-logo {
+    position: absolute;
+    left: 0;
+    top: 50%;
+    transform: translateY(-50%);
+  }
+
+  .menu-logo img {
+    max-height: 30px;
+  }
+
+  .menu {
+    position: absolute;
+    box-sizing: border-box;
+    width: 300px;
+    right: -300px;
+    top: 0;
+    margin: -20px;
+    padding: 75px 50px 50px;
+    background: #cdcdcd;
+    -webkit-font-smoothing: antialiased;
+    /* to stop flickering of text in safari */
+    transform-origin: 0% 0%;
+    transform: translateX(0%);
+    transition: transform 0.5s cubic-bezier(0.77,0.2,0.05,1.0);
+  }
+
+  .menu-container input:checked ~ .menu {
+    transform: translateX(-100%);
+  }
+}
+
+/* desktop styles */
+@media only screen and (min-width: 768px) { 
+  .menu-container {
+    width: 100%;
+  }
+
+  .menu-container a {
+    color: #cdcdcd;
+  }
+
+  .menu-container input {
+    display: none;
+  }
+
+  /* Burger menu */
+  .menu-container span {
+    display: none;
+  }
+
+  .menu {
+    position: relative;
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+  }
+
+  .menu ul {
+    display: flex;
+    padding: 0;
+  }
+
+  .menu li {
+    padding: 0 20px;
+  }
 }
 </style>

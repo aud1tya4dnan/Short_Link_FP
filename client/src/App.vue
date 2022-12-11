@@ -9,6 +9,11 @@
   </header>
    
   -->
+<div class="lines">
+  <div class="line"></div>
+  <div class="line"></div>
+  <div class="line"></div>
+</div>
   <Router-view/>
   
 </template>
@@ -38,7 +43,7 @@ import bootstrap from './bootstrap.css'
 </script>
 
 <style>
-@media (min-width: 100px) {
+/* @media (min-width: 100px) {
   body {
     background: linear-gradient(52deg, #963030, #3930b4);
     background-size: 400% 400%;
@@ -55,6 +60,11 @@ import bootstrap from './bootstrap.css'
       background-position: 0% 50%;
     }
   }
+} */
+body {
+    background: linear-gradient(52deg, #0800ff, #ce24fd);
+    background-size: 100% 200%;
 }
+
 </style>
 <!-- @media (min-width: 100px) { }-->

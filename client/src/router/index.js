@@ -3,7 +3,6 @@ import LoginView from '../views/LoginView.vue'
 import RegisterView from '../views/RegisterView.vue'
 import FrontView from '../views/FrontView.vue'
 import Notfound from '../views/NotFound.vue'
-import tesview from '../views/tesview.vue'
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
@@ -32,11 +31,6 @@ const router = createRouter({
       path: "/:catchAll(.*)",
       name: "notfound",
       component: Notfound
-    },
-    {
-      path: "/tesview",
-      name: "tes",
-      component: tesview
     },
   ]
 })
