@@ -13,6 +13,7 @@
         </div>
         <div class="d-grid">
           <input type="button" class="btn btn-primary btnSeccion" @click="postUser()" value="Login">
+          <p style="color: red">{{ validation }}</p>
         </div>
       </form>
       <div class="mt-3">
@@ -28,7 +29,7 @@ import axios from "axios";
 export default {
   data() {
     return {
-
+      validation: "",
     };
   },
   mounted(){
@@ -41,11 +42,22 @@ export default {
                 password: this.password,
             })
             .then((response) => {
-                const uid = response.data
-                console.log(uid)
-                localStorage.setItem('uid', uid)
-                this.$router.push({path: `/dashboard/${uid}`})
-                console.log(response)
+                console.log(response.data)
+                if(response.data == "auth/invalid-email"){
+                  this.validation = "*invalid email"
+                }
+                else if(response.data == "auth/wrong-password"){
+                  this.validation = "*invalid password"
+                }
+                else if(response.data == "auth/user-not-found"){
+                  this.validation = "*user not found"
+                }
+                else{
+                  const uid = response.data
+                  console.log(uid)
+                  localStorage.setItem('uid', uid)
+                  this.$router.push({path: `/dashboard/${uid}`})
+                }
             })
             .catch((error) => {
                 console.log(error)
