@@ -13,6 +13,7 @@
                     </div>
                     <div class="d-grid">
                         <button class="btn btn-primary" type="submit" @click="postUser()">Login</button>
+                        <p style="color: red">{{ validation }}</p>
                     </div>
                 
                 <div class="mt-3">
