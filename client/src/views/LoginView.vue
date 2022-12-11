@@ -1,5 +1,5 @@
 <template>
-  <div class="title">
+  <!-- <div class="title">
     <h1>AWIK.WOK</h1>
   </div>
   <div class="loginview">
@@ -16,7 +16,28 @@
       <button type="submit" class="submit" @click="postUser()" v-on:keyup.enter="postUser()">Submit</button>
     </div>
     <p>Dont have an account? <RouterLink to="/register">Register</RouterLink> </p> 
-  </div>
+  </div> -->
+  <div class="vh-100 d-flex justify-content-center align-items-center">
+            <div class="col-md-4 p-5 shadow-sm border rounded-3">
+                <h2 class="text-center mb-4 text-primary">Login Form</h2>
+                <form>
+                    <div class="mb-3">
+                        <label for="exampleInputEmail1" class="form-label">Email address</label>
+                        <input type="email" class="form-control border border-primary" id="exampleInputEmail1" aria-describedby="emailHelp" v-model="email">
+                    </div>
+                    <div class="mb-3">
+                        <label for="exampleInputPassword1" class="form-label">Password</label>
+                        <input type="password" class="form-control border border-primary" id="exampleInputPassword1" v-model="password">
+                    </div>
+                    <div class="d-grid">
+                        <button class="btn btn-primary" type="submit" @click="postUser()">Login</button>
+                    </div>
+                </form>
+                <div class="mt-3">
+                    <p class="mb-0  text-center">Don't have an account? <RouterLink to="/register" class="text-primary fw-bold">Sign Up</RouterLink></p>
+                </div>
+            </div>
+        </div>
 </template>
 
 <script>
@@ -25,8 +46,10 @@ import axios from "axios";
 export default {
   data() {
     return {
-      status: false,
+      //status: false,
     };
+  },
+  mounted(){
   },
   methods: {
     async postUser() {
@@ -64,63 +87,3 @@ export default {
 
 
 </script>
-
-<style scoped>
-.loginview{
-    border: 3px solid;
-    border-radius: 10%;
-    padding: 30px 30px;
-}
-.username{
-    margin-bottom: 10px;
-  }
-  .pass{
-    margin-bottom: 15px;
-  }
-
-  p{
-    margin-bottom: 15px;
-  }
-  .sub{
-    margin-bottom: 10px;
-  }
-.submit {
-	box-shadow: 3px 4px 0px 0px #8a2a21;
-	background:linear-gradient(to bottom, #c62d1f 5%, #f24437 100%);
-	background-color: "#c62d1f";
-	border-radius: 25px;
-	border: 3px solid #d02718;
-	display: inline-block;
-	cursor: pointer;
-	color:#ffffff;
-	font-family:Impact;
-	font-size: 12px;
-	padding: 4px 100px;
-	text-decoration: none;
-}
-.submit:hover {
-	background:linear-gradient(to bottom, #f24437 5%, #c62d1f 100%);
-	background-color:#f24437;
-}
-.submit:active {
-	position:relative;
-	top:1px;
-}
-.type{
-     padding: 10px;
-     font-size: 17px;
-     border-width: 1px;
-     border-color: #ff00e4;
-     background-color: #ffffff;
-     color: #000000;
-     border-style: groove;
-     border-radius: 12px;
-     box-shadow: 0px 0px 3px rgba(66,66,66,.75);;
-}
-.type:focus {
-     outline:none;
-}
-.title {
-  display: flex;
-}
-</style>

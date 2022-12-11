@@ -4,9 +4,8 @@
     <span></span>
     <span></span>
     <span></span>
-    <a class="menu-logo">
-    <img src="../assets/logo.png" alt="AWIK.WOK" width="30" height="24" class="d-inline-block align-text-top"/>
-    AWIK.WOK
+    <a class="menu-logo"></a>
+    <h2>AWIK.WOK</h2>
     </a>
     <div class="menu">
         <ul>
@@ -15,11 +14,6 @@
         <li>
             <a @click="Logout()">
               Sign Out
-            </a>
-        </li>
-        <li>
-            <a href="#login">
-            Login
             </a>
         </li>
         </ul>
@@ -56,7 +50,7 @@
     </thead>
     <tbody v-for="link in links" :key="link">
       <tr v-if="link.uid == userID">
-        <th><a target="_blank" v-bind:href="link.slink">{{ link.slink.replace("http://", "") }}</a></th>
+        <th><a target="_blank" v-bind:href="'http://127.0.0.1/' + link.slink">{{ link.slink }}</a></th>
         <td>{{ link.flink }}</td>
         <td scope="row">{{ link.uses }}</td>
         <td><button class="content" @click="editLink(link.id)"> Edit </button></td>

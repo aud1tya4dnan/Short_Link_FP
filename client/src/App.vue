@@ -61,10 +61,10 @@ import bootstrap from './bootstrap.css'
     }
   }
 } */
-body {
+/* body {
     background: linear-gradient(52deg, #0800ff, #ce24fd);
     background-size: 100% 200%;
-}
+} */
 
 </style>
 <!-- @media (min-width: 100px) { }-->
