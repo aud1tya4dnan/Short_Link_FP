@@ -4,7 +4,7 @@
     <span></span>
     <span></span>
     <span></span>
-    <a class="menu-logo"></a>
+    <a class="menu-logo">
     <h2>AWIK.WOK</h2>
     </a>
     <div class="menu">
