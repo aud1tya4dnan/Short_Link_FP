@@ -80,8 +80,7 @@ router.post("/api/login", async(req, res) => {
         })
         .catch((error) => {
             const errorCode = error.code;
-            const errorMessage = error.message;
-            res.send(errorMessage)
+            res.send(errorCode)
     });
     }
     catch(err){
