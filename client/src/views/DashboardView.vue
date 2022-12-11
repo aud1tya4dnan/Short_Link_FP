@@ -21,7 +21,7 @@
   <!-- <button @click="Logout()">Sign Out</button> -->
 
   <div class="inputlink">
-    <input type="text" placeholder="www.google.com" class="type" v-model="flink"/>
+    <input type="text" placeholder="https://www.google.com" class="type" v-model="flink"/>
   </div>
 
   <div>
