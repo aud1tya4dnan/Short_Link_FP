@@ -99,6 +99,7 @@ router.delete("/link/:id", async(req, res) => {
     }
     catch(error){
         res.send(error)
+        console.log(error)
     }
 })
 
