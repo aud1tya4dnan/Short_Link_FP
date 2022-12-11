@@ -46,6 +46,9 @@ export default {
                 if(response.data == "auth/invalid-email"){
                   this.validation = "*invalid email"
                 }
+                else if(response.data == "auth/missing-email"){
+                  this.validation = "*please enter your email"
+                }
                 else if(response.data == "auth/wrong-password"){
                   this.validation = "*invalid password"
                 }
