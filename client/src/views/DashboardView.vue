@@ -33,6 +33,7 @@
     <input type="text" placeholder="new slink" v-model="newLink.newslink" />
     <input type="text" placeholder="new url" v-model="newLink.newflink"/>
     <button type="submit" @click="editHandler(newLink.id)">Submit Edit</button>
+    <button type="submit" @click="editbar = false">Cancel</button>
   </div>
 
   <!-- <div class="list" v-for="link in links" :key="link">
