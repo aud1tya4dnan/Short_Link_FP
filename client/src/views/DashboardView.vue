@@ -119,7 +119,7 @@ export default {
         flink: this.flink,
         slink: this.slink,
         uid: this.userID,
-        uses: 0,
+        uses: 1,
       })
       .then((response) =>{
         console.log(response.data)
@@ -161,6 +161,13 @@ export default {
 </script>
 
 <style>
+  body {
+    background: url('https://img.freepik.com/free-photo/hand-painted-watercolor-background-with-sky-clouds-shape_24972-1095.jpg?w=1380&t=st=1670805943~exp=1670806543~hmac=d5e6737f183a740c4fb62ad1fc51ab65826265ea0e9aafb1569489f265b7b45a') no-repeat center center fixed;
+    -webkit-background-size: cover;
+    -moz-background-size: cover;
+    background-size: cover;
+    -o-background-size: cover;
+  }
   .title {
     font-size: 50px;
   }
