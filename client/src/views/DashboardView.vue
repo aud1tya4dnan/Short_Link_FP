@@ -120,7 +120,7 @@ export default {
         flink: this.flink,
         slink: this.slink,
         uid: this.userID,
-        uses: 1,
+        uses: 0,
       })
       .then((response) =>{
         console.log(response.data)
