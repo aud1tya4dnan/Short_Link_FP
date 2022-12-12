@@ -25,8 +25,9 @@
   </div>
 
   <div>
-    <h5 class="title">AWIK.WOK/<input type="text" placeholder="alias" class="alias" v-model="slink"/></h5>
-    <button type="submit" class="submit"  @click="postLink()">Submit</button>
+    <h5 class="title">AWIK.WOK/<input type="text" placeholder="alias" class="alias" v-model="slink"/> ||
+      <button type="submit" class="btn btn-primary"  @click="postLink()">Submit</button>
+    </h5>
   </div>
   
   <div class="edit" v-show="editbar">
