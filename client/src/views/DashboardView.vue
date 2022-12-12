@@ -25,16 +25,16 @@
   </div>
 
   <div>
-    <h5 class="title">AWIK.WOK/<input type="text" placeholder="alias" class="alias" v-model="slink"/> ||
-      <button type="submit" class="btn btn-primary"  @click="postLink()">Submit</button>
+    <h5 class="title">AWIK.WOK/<input type="text" placeholder="alias" class="alias" v-model="slink"/>
+      <button type="submit" class="btn btn-primary m-3"  @click="postLink()">Submit</button>
     </h5>
   </div>
   
   <div class="edit" v-show="editbar">
-    <input type="text" placeholder="new slink" v-model="newLink.newslink" />
-    <input type="text" placeholder="new url" v-model="newLink.newflink"/>
-    <button type="submit" @click="editHandler(newLink.id)">Submit Edit</button>
-    <button type="submit" @click="editbar = false">Cancel</button>
+    <input type="text" placeholder="new slink" v-model="newLink.newslink" class="type m-3"/>
+    <input type="text" placeholder="new url" v-model="newLink.newflink" class="type m-3"/>
+    <button type="submit" @click="editHandler(newLink.id)" class="btn btn-primary m-3">Submit Edit</button>
+    <button type="submit" @click="editbar = false" class="btn btn-primary m-3">Cancel</button>
   </div>
 
   <!-- <div class="list" v-for="link in links" :key="link">
