@@ -64,6 +64,7 @@ router.get("/link", async(req,res) => {
     catch(err) {
         console.log(err)
     }
+    
 })
 
 router.post("/api/login", async(req, res) => {
