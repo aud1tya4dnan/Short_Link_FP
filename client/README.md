@@ -1,3 +1,7 @@
+# Short Link Project 
+
+This Project is mainly purpose for shortening your link and store the link in databases, and you can only see the link that inputted by your account
+
 # vue-project
 
 This template should help get you started developing with Vue 3 in Vite.
