@@ -37,7 +37,7 @@ export default {
   },
   methods: {
     async postUser() {
-      let res = await axios.post(`http://localhost:8000/api/login`, {
+      let res = await axios.post(`http://139.180.209.43:8000/api/login`, {
                 email: this.email,
                 password: this.password,
             })

@@ -5,7 +5,7 @@
     <span></span>
     <span></span>
     <a href="#" class="menu-logo">
-    <img src="./assets/logo.png" alt="AWIK.WOK"/>
+    <img src="../assets/logo.png" alt="AWIK.WOK"/>
     </a>
     <div class="menu">
         <ul>

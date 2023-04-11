@@ -111,7 +111,7 @@ export default {
       const res = await axios.get('http://localhost:8000/link')
         .then((response)=>{
           this.links.push(...response.data)
-          console.log(response.data)
+          // console.log(response.data)
         }
       )
     },
