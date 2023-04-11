@@ -108,7 +108,7 @@ export default {
     async getLink() {
       this.userID = localStorage.getItem('uid')
       console.log(this.userID)
-      const res = await axios.get('http://localhost:8000/link')
+      const res = await axios.get('http://139.180.209.42:8000/link')
         .then((response)=>{
           this.links.push(...response.data)
           // console.log(response.data)
@@ -116,7 +116,7 @@ export default {
       )
     },
     async postLink() {
-      const res = await axios.post('http://localhost:8000/link', {
+      const res = await axios.post('http://139.180.209.42:8000/link', {
         flink: this.flink,
         slink: this.slink,
         uid: this.userID,
@@ -128,14 +128,14 @@ export default {
       })
     },
     async deleteLink(id) {
-      const res = await axios.delete('http://localhost:8000/link/' + id)
+      const res = await axios.delete('http://139.180.209.42:8000/link/' + id)
       .then((response)=>{
         console.log(response.data)
         location.reload()
       })
     },
     async editHandler(id) {
-      const res = await axios.patch('http://localhost:8000/link/' + id, {
+      const res = await axios.patch('http://139.180.209.42:8000/link/' + id, {
         newflink: this.newLink.newflink,
         newslink: this.newLink.newslink,
       })
