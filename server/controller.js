@@ -2,7 +2,7 @@ import express from "express";
 import bodyParser from "body-parser";
 import { async } from "@firebase/util";
 import { db, auth } from "./firebase.js"
-import { getAuth, createUserWithEmailAndPassword, signInWithEmailAndPassword } from "firebase/auth"
+import { getAuth, createUserWithEmailAndPassword, signInWithEmailAndPassword, GoogleAuthProvider } from "firebase/auth"
 import { getFirestore, query, collection, doc, onSnapshot, addDoc, deleteDoc, updateDoc, where, increment, getDocs, getDoc } from 'firebase/firestore'
 
 const router = express.Router();
@@ -27,7 +27,7 @@ router.post("/api/register", async(req, res) => {
     }
 })
 
-router.post("/link", async(req,res) => {
+router.post("/api/link", async(req,res) => {
     try {
         var flink = req.body.flink;
         var slink = req.body.slink;
@@ -47,7 +47,7 @@ router.post("/link", async(req,res) => {
       }
 })
 
-router.get("/link", async(req,res) => {
+router.get("/api/link", async(req,res) => {
     try{
         db.collection("link")
         .get()
@@ -89,7 +89,7 @@ router.post("/api/login", async(req, res) => {
     }
 })
 
-router.delete("/link/:id", async(req, res) => {
+router.delete("/api/link/:id", async(req, res) => {
     try {
         db.collection("link")
         .doc(req.params.id)
@@ -104,7 +104,7 @@ router.delete("/link/:id", async(req, res) => {
     }
 })
 
-router.patch("/link/:id", async(req,res) => {
+router.patch("/api/link/:id", async(req,res) => {
     try{
         db.collection("link")
         .doc(req.params.id)
@@ -128,7 +128,7 @@ router.get("/api/redirectLink", async (req, res) => {
     let flink = ''
     console.log(url)
     try {
-        const q = query(collection(db, "link"), where("slink", "==", url.replace("http://127.0.0.1:5173/", "")));
+        const q = query(collection(db, "link"), where("slink", "==", url.replace("http://139.180.209.43:5173/", "")));
 
         console.log("masuk try")
 
@@ -158,6 +158,20 @@ router.get("/api/redirectLink", async (req, res) => {
         console.log(err)
         res.send(err)
     }
+})
+
+router.post("/api/login/google", async(res, req, next) => {
+    const credential = GoogleAuthProvider.credential(id_token);
+    const auth = getAuth();
+    signInWithCredential(auth, credential).catch((error) => {
+      // Handle Errors here.
+      const errorCode = error.code;
+      const errorMessage = error.message;
+      // The email of the user's account used.
+      const email = error.customData.email;
+      // The AuthCredential type that was used.
+      const credential = GoogleAuthProvider.credentialFromError(error);
+    })
 })
 
 export default router;
