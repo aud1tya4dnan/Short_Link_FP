@@ -22,7 +22,7 @@
         },
         methods: {
             async check() {
-                const redLink = await axios.get("http://localhost:8000/api/redirectLink", {
+                const redLink = await axios.get("http://139.180.209.43:8000/api/redirectLink", {
                     params: { url: this.url }
                 })
                 .then((response)=>{

@@ -1,11 +1,11 @@
 <template>
-  <nav class="menu-container">
+  <!-- <nav class="menu-container">
   <input type="checkbox" aria-label="Toggle menu" />
     <span></span>
     <span></span>
     <span></span>
     <a class="menu-logo"></a>
-    <h2>AWIK.WOK</h2>
+    <h2><a @click="location.reload()">AWIK.WOK</a></h2>
     <div class="menu">
         <ul>
         </ul>
@@ -17,15 +17,17 @@
         </li>
         </ul>
     </div>
-</nav>
-  <!-- <button @click="Logout()">Sign Out</button> -->
+</nav> -->
 
+  <!-- <button @click="Logout()">Sign Out</button> -->
+<div class="container text-white">
   <div class="inputlink">
+    <label ref="Full Link" class="h1">Full Link : </label>
     <input type="text" placeholder="https://www.google.com" class="type" v-model="flink"/>
   </div>
 
   <div>
-    <h5 class="title">AWIK.WOK/<input type="text" placeholder="alias" class="alias" v-model="slink"/>
+    <h5 class="title">Short Link <input type="text" placeholder="alias" class="alias" v-model="slink" @keyup.enter="postLink()"/>
       <button type="submit" class="btn btn-primary m-3"  @click="postLink()">Submit</button>
     </h5>
   </div>
@@ -33,7 +35,7 @@
   <div class="edit" v-show="editbar">
     <input type="text" placeholder="new slink" v-model="newLink.newslink" class="type m-3"/>
     <input type="text" placeholder="new url" v-model="newLink.newflink" class="type m-3"/>
-    <button type="submit" @click="editHandler(newLink.id)" class="btn btn-primary m-3">Submit Edit</button>
+    <button type="submit" @click="editHandler(newLink.id)" class="btn btn-success m-3">Submit Edit</button>
     <button type="submit" @click="editbar = false" class="btn btn-primary m-3">Cancel</button>
   </div>
 
@@ -41,7 +43,7 @@
     <div class="box" v-if="link.uid == userID"> -->
       
   <div class="table-responsive">
-  <table class="table table-hover table-borderless table-striped">
+  <table class="table table-hover table-borderless table-striped text-white">
     <thead>
       <tr>
         <th scope="col">Alias</th>
@@ -51,8 +53,8 @@
     </thead>
     <tbody v-for="link in links" :key="link">
       <tr v-if="link.uid == userID">
-        <th><a target="_blank" v-bind:href="'http://127.0.0.1:5173/' + link.slink">awik.wok/{{ link.slink }}</a></th>
-        <td>{{ link.flink }}</td>
+        <th><a target="_blank" v-bind:href="'http://139.180.209.43:5173/' + link.slink">awik.wok/{{ link.slink }}</a></th>
+        <td class="text-white">{{ link.flink }}</td>
         <td scope="row">{{ link.uses }}</td>
         <td><button class="content" @click="editLink(link.id)"> Edit </button></td>
         <td><button class="content" @click="deleteLink(link.id)"> Delete </button></td>
@@ -62,9 +64,8 @@
 
   </table>
   </div>
-  
-    <!-- </div> -->
-  <!-- </div>   -->
+</div>
+
 
   
 
@@ -93,12 +94,22 @@ export default {
     }
   },
   methods: {
+    checkUid(){
+      const uid = this.userID;
+      if(uid == null || uid == "auth/internal-error"){
+        this.$router.push("/")
+        window.reload()
+      }
+      else {
+        this.getLink();
+      }
+    },
     async Logout() {
       try {
         signOut(auth)
         .then(() => {
           localStorage.removeItem('uid')
-          this.$router.push("/")
+          window.location.href= '/'
         })
       }
       catch(error){
@@ -107,41 +118,41 @@ export default {
     },
     async getLink() {
       this.userID = localStorage.getItem('uid')
-      console.log(this.userID)
-      const res = await axios.get('http://localhost:8000/link')
+      // console.log(this.userID)
+      const res = await axios.get('http://139.180.209.43:8000/api/link/')
         .then((response)=>{
           this.links.push(...response.data)
-          console.log(response.data)
+          // console.log(response.data)
         }
       )
     },
     async postLink() {
-      const res = await axios.post('http://localhost:8000/link', {
+      const res = await axios.post('http://139.180.209.43:8000/api/link/', {
         flink: this.flink,
         slink: this.slink,
         uid: this.userID,
         uses: 0,
       })
       .then((response) =>{
-        console.log(response.data)
+        // console.log(response.data)
         location.reload()
       })
     },
     async deleteLink(id) {
-      const res = await axios.delete('http://localhost:8000/link/' + id)
+      const res = await axios.delete('http://139.180.209.43:8000/api/link/' + id)
       .then((response)=>{
-        console.log(response.data)
+        // console.log(response.data)
         location.reload()
       })
     },
     async editHandler(id) {
-      const res = await axios.patch('http://localhost:8000/link/' + id, {
+      const res = await axios.patch('http://139.180.209.43:8000/api/link/' + id, {
         newflink: this.newLink.newflink,
         newslink: this.newLink.newslink,
       })
       .then((response) => {
         location.reload()
-        console.log(response)
+        // console.log(response)
       })
     },
     editLink(id){
@@ -154,21 +165,17 @@ export default {
       })
       this.editbar = true;
     },
+    
   }, 
   mounted() {
-    this.getLink();
-  }
+    // this.getLink();
+    this.checkUid();
+  },
 }
 </script>
 
-<style>
-  body {
-    background: url('https://img.freepik.com/free-photo/hand-painted-watercolor-background-with-sky-clouds-shape_24972-1095.jpg?w=1380&t=st=1670805943~exp=1670806543~hmac=d5e6737f183a740c4fb62ad1fc51ab65826265ea0e9aafb1569489f265b7b45a') no-repeat center center fixed;
-    -webkit-background-size: cover;
-    -moz-background-size: cover;
-    background-size: cover;
-    -o-background-size: cover;
-  }
+<style scoped>
+
   .title {
     font-size: 50px;
   }
@@ -197,8 +204,8 @@ export default {
 	text-decoration:none;
 }
   button:hover {
-	background:linear-gradient(to bottom, #f24437 5%, #c62d1f 100%);
-	background-color:#f24437;
+	background:linear-gradient(to bottom, #2bdcf3 5%, #2be9f0 100%);
+	background-color:#39dbf8fb;
 }
 button:active {
 	position:relative;

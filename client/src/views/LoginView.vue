@@ -1,15 +1,15 @@
 <template>
-  <div class="vh-100 d-flex justify-content-center align-items-center">
+  <div class="vh-100 d-flex justify-content-center align-items-center text-white">
             <div class="col-md-4 p-5 shadow-sm border rounded-3">
-                <h2 class="text-center mb-4 text-primary">Login Form</h2>
+                <h1 class="text-center mb-4 text-primary">Login Form</h1>
                 
                     <div class="mb-3">
                         <label for="exampleInputEmail1" class="form-label">Email address</label>
-                        <input type="email" class="form-control border border-primary" id="exampleInputEmail1" aria-describedby="emailHelp" v-model="email">
+                        <input type="email" class="form-control border border-primary" id="exampleInputEmail1" aria-describedby="emailHelp" v-model="email" @keyup.enter="postUser()">
                     </div>
                     <div class="mb-3">
                         <label for="exampleInputPassword1" class="form-label">Password</label>
-                        <input type="password" class="form-control border border-primary" id="exampleInputPassword1" v-model="password">
+                        <input type="password" class="form-control border border-primary" id="exampleInputPassword1" v-model="password" @keyup.enter="postUser()">
                     </div>
                     <div class="d-grid">
                         <button class="btn btn-primary" type="submit" @click="postUser()">Login</button>
@@ -24,25 +24,33 @@
 </template>
 
 <script>
+import { createSimpleExpression } from "@vue/compiler-core";
 import axios from "axios";
 
 export default {
   data() {
     return {
       validation: "",
+      uid: null,
     };
   },
-  mounted(){
-
+  beforeMount(){
+    // this.checkuid();
   },
   methods: {
+    // checkuid(){
+    //   const uid = localStorage.getItem(uid);
+    //   if(uid != null){
+    //     this.$router.push('/dashboard');
+    //   }
+    // },
     async postUser() {
-      let res = await axios.post(`http://localhost:8000/api/login`, {
+      let res = await axios.post(`http://139.180.209.43:8000/api/login`, {
                 email: this.email,
                 password: this.password,
             })
             .then((response) => {
-                console.log(response.data)
+                // console.log(response.data)
                 if(response.data == "auth/invalid-email"){
                   this.validation = "*invalid email"
                 }
@@ -57,28 +65,17 @@ export default {
                 }
                 else{
                   const uid = response.data
-                  console.log(uid)
+                  // console.log(uid)
                   localStorage.setItem('uid', uid)
-                  this.$router.push({path: `/dashboard/${uid}`})
+                  this.userID = uid;
+                  this.$router.push({path: `/dashboard`})
                 }
             })
             .catch((error) => {
                 console.log(error)
             })
     },
-    // checkForm() {
-    //   let email = this.email;
-    //   let password = this.password;
-    //   if (email == "" || password == "") {
-    //     alert("Ada yang kosong ngab")
-    //     return false;
-    //   }
-    //   else{
-    //     this.postUser();
-    //   }
-    // }
   },
-
 };
 
 
